@@ -16,20 +16,6 @@
 #
 # Full licence is in the file COPYING and at http://www.gnu.org/copyleft/gpl.html
 
-# import (re, codecs, os, platform, copy, itertools, math, cmath, random, sys, copy)
-# import (
-#     re,
-#     codecs,
-#     os,
-#     platform,
-#     copy,
-#     itertools,
-#     math,
-#     cmath,
-#     random,
-#     sys,
-#     copy
-# )
 import re
 import codecs
 import os
