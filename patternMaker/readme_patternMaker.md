@@ -1,4 +1,4 @@
-# 1st change made to this file
+# 3rd change made to readme_patternMaker.md
 
 ---
 
@@ -11,7 +11,7 @@
 
 ---
 
-'''
+```
 gen_pattern.py
 Usage example:
 python gen_pattern.py -o out.svg -r 11 -c 8 -T circles -s 20.0 -R 5.0 -u mm -w 216 -h 279
@@ -26,4 +26,4 @@ python gen_pattern.py -o out.svg -r 11 -c 8 -T circles -s 20.0 -R 5.0 -u mm -w 2
 -h, --page_height - page height in units (default 279)
 -a, --page_size - page size (default A4), supersedes -h -w arguments
 -H, --help - show help
-'''
+```
