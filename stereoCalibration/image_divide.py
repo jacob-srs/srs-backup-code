@@ -21,7 +21,8 @@ class Image_Dichotomy(object):
     """ 对 mindvision 原始图像进行左右分割 """
     ROOT_PATH = (
             # r"C:\Users\lijin\OneDrive\srs-backup-code\stereoCalibration"
-            r"C:\Users\THINKPAD\OneDrive\GitSpace\srs-backup-code-master\srs-backup-code-master\stereoCalibration"
+            # r"C:\Users\THINKPAD\OneDrive\srs-backup-code-master\stereoCalibration"
+            r"C:\Users\lijin\OneDrive\srs-backup-code\stereoCalibration"
         )
 
     def __init__(self):
@@ -41,7 +42,7 @@ class Image_Dichotomy(object):
         )
         cam_org_paths = glob.glob(
             IMAGE_ORG_PATH
-            + r"\cam_org_*.PNG"
+            + r"\cam_org_*.png"
         )
         cam_org_count = 0
         for cam_org_path in cam_org_paths:
@@ -89,7 +90,8 @@ class Image_Dichotomy(object):
             os.mkdir(cls.ROOT_PATH + r"\image_dichotomy")
         except OSError:
             # os.rmdir(cls.ROOT_PATH + r"\image_dichotomy")  # 删除空目录
-            os.removedirs(cls.ROOT_PATH + r"\image_dichotomy\*")
+            # os.removedirs(cls.ROOT_PATH + r"\image_dichotomy\*")
+            print("already exists")
 
     @ classmethod
     def __test_ascending_path(cls):
@@ -127,7 +129,7 @@ class Image_Dichotomy(object):
         # self.__test_read_and_show_image_orign()
         # self.__test_ascending_path()
         # self.__test_create_directory()
-        # self.__test_image_info()
+        self.__test_image_info()
 
     def this_create_directory(self):
         """ 实例方法调用类方法区 """
@@ -142,6 +144,7 @@ class Image_Dichotomy(object):
         def print_col_by_2(_col_info):
             bisect_pixel = int(_col_info / 2)
             print(bisect_pixel)
+
         # 显示图像
         def show_image(
             _direction_1=None, _direction_2=None,
@@ -186,20 +189,20 @@ class Image_Dichotomy(object):
                 self.ROOT_PATH
                 + r"\image_dichotomy\cam_org_right_{0}.png".format(img_index),
             )
-            if os.path.exists(img_sequence_left_file):
-                os.remove(img_sequence_left_file)
-            elif os.path.exists(img_sequence_right_file):
-                os.remove(img_sequence_right_file)
-            # cv2.imwrite(
-            #     self.ROOT_PATH
-            #     + r"\image_dichotomy\cam_org_left_{0}.png".format(img_index),
-            #     cam_org_left
-            # )
-            # cv2.imwrite(
-            #     self.ROOT_PATH
-            #     + r"\image_dichotomy\cam_org_right_{0}.png".format(img_index),
-            #     cam_org_right
-            # )
+            # if os.path.exists(img_sequence_left_file):
+            #     os.remove(img_sequence_left_file)
+            # elif os.path.exists(img_sequence_right_file):
+            #     os.remove(img_sequence_right_file)
+            cv2.imwrite(
+                self.ROOT_PATH
+                + r"\image_dichotomy\cam_org_left_{0}.png".format(img_index),
+                cam_org_left
+            )
+            cv2.imwrite(
+                self.ROOT_PATH
+                + r"\image_dichotomy\cam_org_right_{0}.png".format(img_index),
+                cam_org_right
+            )
 
 
 
