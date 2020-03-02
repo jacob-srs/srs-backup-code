@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
 
-img = cv2.imread(r'C:\Users\hpdre\Downloads\cam_depth\cam_depth_0.png', cv2.IMREAD_ANYDEPTH | cv2.IMREAD_ANYCOLOR)
+# img = cv2.imread(r'C:\Users\hpdre\Downloads\cam_depth\cam_depth_0.png', cv2.IMREAD_ANYDEPTH | cv2.IMREAD_ANYCOLOR)
+img = cv2.imread(r'C:\Users\lijin\OneDrive\srs-backup-code\stereoCalibration\backup\cam_depth\cam_depth_0.png', cv2.IMREAD_ANYDEPTH | cv2.IMREAD_ANYCOLOR)
 depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(img, alpha=1), cv2.COLORMAP_JET)
 norm_img = (img-img.mean()) / (img.max() - img.min())
 
