@@ -87,6 +87,7 @@ class Source_2_Regist_Test():
         """
         
         import shutil
+        import time
 
         print("in create_dir_register_test")      
 
@@ -104,6 +105,9 @@ class Source_2_Regist_Test():
        
         # 在分类目录中循环复制 source 中的文件结构， glob？
         source_sub_dirs = os.listdir((self.source_path))
+        image_count = 0
+        time_start_abs = time.time()  # 绝对时间
+        time_start_reli = time.perf_counter()  # 相对时间
         for name_sub_dir in source_sub_dirs:
             source_sub_dir = os.path.join(self.source_path, name_sub_dir)
             register_sub_dir = os.path.join(register_dir_path, name_sub_dir)
@@ -120,11 +124,20 @@ class Source_2_Regist_Test():
                 if i < 2:  # register
                     image_dist_path = os.path.join(register_sub_dir, image_name)                    
                     shutil.copyfile(image_src_path, image_dist_path)
+                    image_count += 1
                     # cv2.imwrite(image_path, image_name)
                 else:
                     image_dist_path = os.path.join(test_sub_dir, image_name)
                     # cv2.imwrite(image_path, image_name)
                     shutil.copyfile(image_src_path, image_dist_path)
+                    image_count += 1
+                print("..processing image [%6d]" % image_count)
+        time_stop_abs = time.time()
+        time_stop_reli = time.perf_counter()
+        time_total_abs = time_stop_abs - time_start_abs
+        time_total_reli = time_stop_reli - time_start_reli
+        print("..total time for creating & copy images abs-[%f]::reli-[%s]" %(time_total_abs, time_total_reli)) 
+        print("..total image [%6d]" % image_count)
     
     def __check_all_paths(self):
         """ 读取命令行输入的路径 """
