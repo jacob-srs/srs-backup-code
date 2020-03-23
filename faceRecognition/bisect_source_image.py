@@ -1,7 +1,7 @@
 #
 # 作者：lee
-# 时间： 20200321
-# 描述： 将原始图像集分类成注册图像集与测试图像集
+# 时间：20200321
+# 描述：将原始图像集分类成注册图像集与测试图像集
 # 参考：TestAccuracy.py
 #
 
@@ -10,6 +10,7 @@ import argparse
 import os
 import sys
 
+import cv2
 
 class Source_2_Regist_Test():
     """ 将原始图像二分
@@ -85,6 +86,8 @@ class Source_2_Regist_Test():
         注2：source，register，test都在同级目录下
         """
         
+        import shutil
+
         print("in create_dir_register_test")      
 
         # 创建 source 同级分类目录 register 与 test
@@ -102,11 +105,26 @@ class Source_2_Regist_Test():
         # 在分类目录中循环复制 source 中的文件结构， glob？
         source_sub_dirs = os.listdir((self.source_path))
         for name_sub_dir in source_sub_dirs:
+            source_sub_dir = os.path.join(self.source_path, name_sub_dir)
             register_sub_dir = os.path.join(register_dir_path, name_sub_dir)
             test_sub_dir = os.path.join(test_dir_path, name_sub_dir)
 
             self.__make_dir(register_sub_dir)
             self.__make_dir(test_sub_dir)
+
+            # 挑选并复制图像，使用 listdir 遍历 source 子目录中的图像路径
+            image_list = os.listdir(source_sub_dir)
+            for i in range(len(image_list)):
+                image_name = str(image_list[i])
+                image_src_path = os.path.join(source_sub_dir, image_name)
+                if i < 2:  # register
+                    image_dist_path = os.path.join(register_sub_dir, image_name)                    
+                    shutil.copyfile(image_src_path, image_dist_path)
+                    # cv2.imwrite(image_path, image_name)
+                else:
+                    image_dist_path = os.path.join(test_sub_dir, image_name)
+                    # cv2.imwrite(image_path, image_name)
+                    shutil.copyfile(image_src_path, image_dist_path)
     
     def __check_all_paths(self):
         """ 读取命令行输入的路径 """
@@ -121,7 +139,6 @@ class Source_2_Regist_Test():
         for i, path in enumerate(self.__sys_argv):
             if i == 0:  # 跳过命令行 文件名
                 continue            
-            
             if not os.path.exists(path):
                 print("\n..Warning::path arg \"%s\" in pos [%s] is not exist..." %(path, i))
                 if i == 1:  # source 路径不存在，退出                    
